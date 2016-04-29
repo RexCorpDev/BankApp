@@ -5,7 +5,7 @@ var moment = require('moment');
 
 
 //CREATE TABLE
-db.query('CREATE TABLE IF NOT EXISTS BankingApp.trans (Id INT PRIMARY KEY AUTO_INCREMENT, Date DATE, Description TEXT, Type TEXT, Amount DECIMAL(10,2), Memo TEXT)');
+db.query('CREATE TABLE IF NOT EXISTS trans (Id INT PRIMARY KEY AUTO_INCREMENT, Date DATE, Description TEXT, Type TEXT, Amount DECIMAL(10,2), Memo TEXT)');
 
 
 exports.get = function(cb){
