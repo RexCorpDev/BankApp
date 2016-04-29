@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Banking App</title>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+</head>
+<body ng-app='bankApp' ng-controller='mainCtrl'>
+  <h1 class="text-center">Banking App</h1>
+  <hr>
+  <div class="container">
+    <div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th><h3>Available Balance: {{ balance }}</h3></th>
+            <th><h3>Monthly Withdrawals: {{ withdrawals }}</h3></th>
+            <th><h3>Monthly  Deposits: {{ deposits }}</h3></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="container text-center">
+
+      <label class="col-lg-6 text-center">
+        Search:
+        <input ng-model='searchFilter' type="text" class="form-control">
+      </label>
+
+      <label class="col-lg-6 text-center">
+        Sort By:
+        <input ng-model='sortOrder' type="text" class="form-control">
+      </label>
+
+    </div>
+    <div class="container well">
+      <div class="form-group">
+        <table class="table">
+          <thead>
+            <h4 ng-hide='showAdd'>Add Transaction:</h4>
+            <h4 ng-show='showEdit'>Edit Transaction:</h4>
+            <tr >
+              <th>Date</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Memo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <div ng-show="addAlert" class="text-center alert">Missing Required Field(s)!</div>
+            <tr>
+              <td> <input ng-model="newTrans.date" type="date" class="form-control"> </td>
+              <td> <input ng-model="newTrans.desc" type="text" class="form-control" placeholder="Dinner"> </td>
+              <td> <input ng-model="newTrans.type" type="text" class="form-control" placeholder="ATM, Debit, Deposit..."> </td>
+              <td> <input ng-model="newTrans.amount" type="number" class="form-control" placeholder="-1050.32"> </td>
+              <td> <input ng-model="newTrans.memo" type="text" class="form-control" placeholder="Great restaurant!"> </td>
+              <td>
+                <span ng-hide='showAdd'>
+                  <button ng-click='addTrans(newTrans)' class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+                </span>
+                <span ng-show='showEdit'>
+                  <button ng-click='submitEdit(newTrans)' class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
+                </span>
+              </td>
+            </tr>
+            <!-- <tr ng-repeat='trans in transactions'>
+            <div ng-show="showEdit" class="well"> This is the edit </div>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th ng-click='sortBy("date")'>Date</th>
+        <th ng-click='sortBy("description")'>Description</th>
+        <th ng-click='sortBy("type")'>Type</th>
+        <th ng-click='sortBy("amount")'>Amount</th>
+        <th ng-click='sortBy("memo")'>Memo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='trans in transactions | filter:searchFilter | orderBy:sortOrder track by $index'>
+        <td>{{trans.date}}</td>
+        <td>{{trans.desc}}</td>
+        <td>{{trans.type}}</td>
+        <td>{{trans.amount}}</td>
+        <td>{{trans.memo}}</td>
+        <td>
+          <div class="text-center">
+            <button ng-click='editTrans(trans)' class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button ng-click='deleteTrans(trans)' class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+  <script src="/bower_components/angular/angular.min.js" charset="utf-8"></script>
+  <script src="" charset="utf-8"></script>
+  <script src="../public/js/main.js" charset="utf-8"></script>
+</body>
+</html>
