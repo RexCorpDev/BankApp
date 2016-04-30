@@ -38,12 +38,12 @@ app.controller('mainCtrl', function($scope, Bank){
       });
 
 
-      $scope.balance += $scope.newTrans.amount;
+      $scope.balance += $scope.newTrans.Amount;
 
-      if($scope.newTrans.type === 'Withdrawal'){
-        $scope.withdrawals += $scope.newTrans.amount;
-      } else if($scope.newTrans.type === 'Deposit'){
-        $scope.deposits += $scope.newTrans.amount;
+      if($scope.newTrans.Type === 'Withdrawal'){
+        $scope.withdrawals += $scope.newTrans.Amount;
+      } else if($scope.newTrans.Type === 'Deposit'){
+        $scope.deposits += $scope.newTrans.Amount;
       };
       $scope.newTrans = {};
 
@@ -86,8 +86,6 @@ app.controller('mainCtrl', function($scope, Bank){
       console.log('arrData + edit=> ', $scope.transactions);
     };
   };
-
-
 
   $scope.sortBy = order => {
     if($scope.sortOrder === order){
