@@ -7,8 +7,6 @@ var app = angular.module('bankApp');
 
 app.service('Bank', function($http) {
 
-  // manage all trans api calls
-
   this.getAll = () => {
     return $http.get('/api/banks');
   };
@@ -22,11 +20,5 @@ app.service('Bank', function($http) {
     console.log('service delete out, ', deleteId);
     return $http.delete(`/api/banks/${deleteId}`);
   };
-
-  //
-  // this.toggle = trans => {
-  //   return $http.put(`/api/banks/${trans.id}/edit`);
-  // };
-  //
 
 });

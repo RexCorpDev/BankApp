@@ -8,7 +8,6 @@ var Bank = require('../models/bank');
 
 
 router.route('/')
-
 .get((req, res) => {
 
   console.log('req.body=> ', req.body);
@@ -22,13 +21,12 @@ router.route('/')
 })
 
 .post((req, res) => {
-
   console.log("post @ banks.js=> ", req.body);
-  // req.body  -->  { desc: ??, dueDate: ?? }
   Bank.createTrans(req.body, (err, newTrans) => {
     if(err) {
       return res.status(400).send(err);
     }
+    console.log("res.send @ banks.js=> ", newTrans);
     res.send(newTrans);
   });
 });

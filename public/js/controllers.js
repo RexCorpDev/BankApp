@@ -28,14 +28,15 @@ app.controller('mainCtrl', function($scope, Bank){
       Bank.createTrans(newTrans)
       .then(res => {
         // var transaction = res.data;
-        $scope.transactions.push(res.data);
+        console.log("createTrans=> ", res.data);
+        $scope.transactions.push(angular.copy(newTrans));
         $scope.newTrans = null;
+        console.log("arrData + New=> ", $scope.transactions);
       })
       .catch(err => {
         console.error(err);
       });
 
-      console.log("arrData + New=> ", $scope.transactions);
 
       $scope.balance += $scope.newTrans.amount;
 

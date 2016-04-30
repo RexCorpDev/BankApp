@@ -13,13 +13,11 @@ exports.get = function(cb){
 }
 
 exports.createTrans = function(newTrans, cb){
-
-  var sliceDate = newTrans.date.slice(0, 10);
-  console.log('sliceDate=> ', sliceDate);
-
-  console.log('newTrans @ bank.js=> ', newTrans);
+  console.log("newTrans @ bank.js=> ", newTrans);
+  // var sliceDate = newTrans.date.slice(0, 10);
+  var sliceDate = newTrans.Date.slice(0, 10);
   if(!newTrans) { return cb('Missing required fields');}
-  db.query(`INSERT INTO trans (Date, Description, Type, Amount, Memo) VALUES ("${newTrans.date}","${newTrans.description}","${newTrans.type}","${newTrans.amount}","${newTrans.memo}")`, cb);
+  db.query(`INSERT INTO trans (Date, Description, Type, Amount, Memo) VALUES ("${sliceDate}","${newTrans.Description}","${newTrans.Type}","${newTrans.Amount}","${newTrans.Memo}")`, cb);
 }
 
 exports.deleteThis = function(Id, cb){
