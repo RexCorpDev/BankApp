@@ -3,44 +3,21 @@
 var db = require('../config/db');
 var moment = require('moment');
 
-
-//CREATE TABLE
 db.query('CREATE TABLE IF NOT EXISTS trans (Id INT PRIMARY KEY AUTO_INCREMENT, Date DATE, Description TEXT, Type TEXT, Amount DECIMAL(10,2), Memo TEXT)');
 
+let Bank = {
+  get(cb){
+    db.query(`SELECT * FROM trans`, cb);
+  },
+  createTrans(newTrans, cb){
+    var sliceDate = newTrans.Date.slice(0, 10);
+    if(!newTrans) { return cb('Missing required fields');}
+    db.query(`INSERT INTO trans (Date, Description, Type, Amount, Memo) VALUES ("${sliceDate}","${newTrans.Description}","${newTrans.Type}","${newTrans.Amount}","${newTrans.Memo}")`, cb);
+  },
+  deleteThis(Id, cb){
+    if(!Id) { return cb('Missing required fields');}
+    db.query(`DELETE FROM trans WHERE ID = ${Id}`, cb);
+  }
+};
 
-exports.get = function(cb){
-  db.query(`SELECT * FROM trans`, cb);
-}
-
-exports.createTrans = function(newTrans, cb){
-  console.log("newTrans @ bank.js=> ", newTrans);
-  // var sliceDate = newTrans.date.slice(0, 10);
-  var sliceDate = newTrans.Date.slice(0, 10);
-  if(!newTrans) { return cb('Missing required fields');}
-  db.query(`INSERT INTO trans (Date, Description, Type, Amount, Memo) VALUES ("${sliceDate}","${newTrans.Description}","${newTrans.Type}","${newTrans.Amount}","${newTrans.Memo}")`, cb);
-}
-
-exports.deleteThis = function(Id, cb){
-  //DELETE By ID
-  console.log('DeleteThis @ bank.js=> ', Id);
-  if(!Id) { return cb('Missing required fields');}
-  db.query(`DELETE FROM trans WHERE ID = ${Id}`, cb);
-}
-//
-// exports.editTrans = function(editInfo, cb) {
-//   // EDIT
-//     //console.log(editInfo.location, editInfo.id);
-//     if(!editInfo.id) { return cb('Missing required fields');}
-//
-//     db.query(`UPDATE trans SET
-//       Date = "${editInfo.date}" WHERE id = ${editInfo.id},
-//       Description = "${editInfo.description}" WHERE id = ${editInfo.id},
-//       Type = "${editInfo.type}" WHERE id = ${editInfo.id},
-//       Amount = "${editInfo.amount}" WHERE id = ${editInfo.id},
-//       Memo = "${editInfo.memo}" WHERE id = ${editInfo.id}`, cb);
-// };
-//
-// exports.findOneRoom = function(id, cb){
-//   if(!id) { return cb('Missing required fields');}
-//   db.query(`SELECT * FROM rooms WHERE ID = ${id}`, cb);
-// }
+module.exports = Bank;

@@ -3,6 +3,7 @@
 var app = angular.module('bankApp');
 
 app.controller('mainCtrl', function($scope, Bank){
+
   var edits = {};
   $scope.balance = 0;
   $scope.withdrawals = 0;
@@ -10,10 +11,7 @@ app.controller('mainCtrl', function($scope, Bank){
 
   Bank.getAll()
   .then(res => {
-    // console.log("get res.data", res.data);
-
     $scope.transactions = res.data;
-    // console.log('get Data=> ', $scope.transactions);
   })
   .catch(err => {
     console.log('err: ', err);
@@ -65,7 +63,6 @@ app.controller('mainCtrl', function($scope, Bank){
       console.error(err);
     });
   };
-
 
   $scope.editTrans = (trans) => {
     edits = angular.copy(trans);    // copy information to 'edits'

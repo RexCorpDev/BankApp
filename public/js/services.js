@@ -2,23 +2,12 @@
 
 var app = angular.module('bankApp');
 
-// services.js
-// all services and factories
-
 app.service('Bank', function($http) {
 
-  this.getAll = () => {
-    return $http.get('/api/banks');
-  };
+  this.getAll = () => $http.get('/api/banks');
 
-  this.createTrans = trans => {
-    console.log('service newTrans out, ', trans);
-    return $http.post('/api/banks', trans);
-  };
+  this.createTrans = trans => $http.post('/api/banks', trans);
 
-  this.remove = deleteId => {
-    console.log('service delete out, ', deleteId);
-    return $http.delete(`/api/banks/${deleteId}`);
-  };
+  this.remove = deleteId => $http.delete(`/api/banks/${deleteId}`);
 
 });
