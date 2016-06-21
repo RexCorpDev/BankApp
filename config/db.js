@@ -2,10 +2,11 @@
 
 var mysql = require('mysql');
 
+
 var db = mysql.createConnection(process.env.JAWSDB_URL || {
   host:       'localhost',
   user:       'root',
-  password:   'Zoolander',
+  password:   process.env.MYSQL_PASSWORD
   database:   'BankingApp'
 });
 
